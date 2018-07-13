@@ -85,24 +85,24 @@ public class Tool
     /// </summary>
     static public string DefultMd5 = "fd44b5075d121e7f347684259aeb15af";
     //脚
-    static public string rightfoot = "c18b14fcb53cb19cac7626196452fe5d";
-    static public string leftfoot = "46ed2d26f6ebf77678e24073f2835345";
+    static public string rightfoot = "46ed2d26f6ebf77678e24073f2835345";
+    static public string leftfoot = "c18b14fcb53cb19cac7626196452fe5d";
     //手
-    static public string righthand = "fd44b5075d121e7f347684259aeb15af";
-    static public string lefthand = "cfbe5dbffec6cdedfc6c52bafd4f04ea";
+    static public string righthand = "cfbe5dbffec6cdedfc6c52bafd4f04ea";
+    static public string lefthand = "fd44b5075d121e7f347684259aeb15af";
     //肩
-    static public string rightshoulder = "60d2ada6ba8204ddc15df391e051ba31";
-    static public string leftshoulder = "1e87ba8b85bf5d8ae1c90462e8ae0194";
+    static public string rightshoulder = "1e87ba8b85bf5d8ae1c90462e8ae0194";
+    static public string leftshoulder = "60d2ada6ba8204ddc15df391e051ba31";
     //膝
-    static public string rightknee = "dc3af448431a9f73d2fb233e6049b1c0";
-    static public string leftknee = "fc63c4d5c39afc49b07cbc522d713107";
+    static public string rightknee = "fc63c4d5c39afc49b07cbc522d713107";
+    static public string leftknee = "dc3af448431a9f73d2fb233e6049b1c0";
 
 
 
     //受伤部位
     static public List<string> InjuryPosition = new List<string>() { "手", "臂", "脚", "膝" };
     //受伤方向
-    static public List<string> Illposition = new List<string>() { "左", "右" };
+    static public List<string> Illposition = new List<string>() { "右", "左" };
     //护具外形
     static public List<string> protector_shape = new List<string>() { "短护具", "长护具 " };
 
@@ -127,6 +127,10 @@ public class Tool
 
     //导入模型的缩放比例
     static public float UserImportScaler = 0.008f;
+
+    //标准模型原始缩放比例
+    static public float NormalScaler = 0.01f;
+
     //初始坐标系位置
     static public Vector3 coordinatesystem_originPos = new Vector3(0, 0, 4);
 

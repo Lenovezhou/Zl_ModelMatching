@@ -88,7 +88,7 @@ public class ModelManager : MonoBehaviour
         MSGCenter.Register(Enums.AvoidvacancyControll.ActiveAll.ToString(), AliveAddAvoidvacancy);
         MSGCenter.Register(Enums.AvoidvacancyControll.InactiveAll.ToString(), AliveAddAvoidvacancy);
 
-        MSGCenter.Register(Enums.MatchigPointGizmoControll.LoadUserData.ToString(), LoadUserPointer);
+        //MSGCenter.Register(Enums.MatchigPointGizmoControll.LoadUserData.ToString(), LoadUserPointer);
 
         MSGCenter.Register(Enums.MainProcess.MainProcess_SaveALL.ToString(), SaveAllCall);
 
@@ -112,9 +112,9 @@ public class ModelManager : MonoBehaviour
         GameObject normalgo = new GameObject("NormalModels" + userimporottaltol);
 
         Normal = normalgo;
-        GameObject gochild = new GameObject("CameraTarget");
-        gochild.transform.SetParent(normalgo.transform);
-        gochild.transform.localPosition = Vector3.zero;
+        GameObject cameratargetgo = new GameObject("CameraTarget");
+        cameratargetgo.transform.SetParent(normalgo.transform);
+        cameratargetgo.transform.localPosition = Vector3.zero;
 
 
         normalgo.AddComponent<STL>().CreateInstance(normalmodelpath, str => { }, instancego =>
@@ -133,9 +133,9 @@ public class ModelManager : MonoBehaviour
                 childrenderers[i].material = materialmap[Enums.MatarialsUse.NormalModel];
             }
             normalgo.transform.SetParent(transform);
-            normalgo.transform.position = transform.position + transform.forward * 4;
+            //normalgo.transform.position = transform.position + transform.forward * 4;
             CreatCoordinateSystem(normalgo.transform);
-            setcameratargetcallback(gochild.transform);
+            setcameratargetcallback(cameratargetgo.transform);
         });
 	}
 
@@ -168,6 +168,7 @@ public class ModelManager : MonoBehaviour
 
     void MatchingModelNormal(GameObject import)
     {
+        import.name = "UserImport";
         import.transform.SetParent(transform);
         ModelTranslate mt = import.AddComponent<ModelTranslate>();
         mt.Init(materialmap);
@@ -248,9 +249,9 @@ public class ModelManager : MonoBehaviour
             {
                 go.transform.SetParent(userimport.transform);
                 MatchingModelNormal(userimport);
+                LoadUserPointerAndPieceProtect();
             }
            );
-            userimport.name = "UserImport";
             //Destroy(userimport);
         }
         catch (System.Exception e)
@@ -572,8 +573,7 @@ public class ModelManager : MonoBehaviour
     /// <summary>
     /// 从服务器过来的数据刷新
     /// </summary>
-    /// <param name="userxmlpath"></param>
-    void LoadUserPointer(string userxmlpath)
+    void LoadUserPointerAndPieceProtect()
     {
         Dictionary<int, Dictionary<int, Vector3>> userdata = PointHelper.GetInstance().userdataformweb;// Tool.ParseXML(Enums.PointMode.UserImport);
 
@@ -603,6 +603,9 @@ public class ModelManager : MonoBehaviour
                 }
             }
         }
+
+        PointHelper.GetInstance().DownloadSave(PlayerDataCenter.PieceProtectorURL);
+
         MSGCenter.Execute(Enums.MainProcess.MainProcess_loadedUserPointDone.ToString());
     }
 

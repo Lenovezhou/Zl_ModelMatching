@@ -60,6 +60,10 @@ public class JsonHelper  {
 
         JObject msgData = (JObject)JsonConvert.DeserializeObject(json);
         string channelStr = msgData.Property(key) != null ? msgData[key].ToString() : "error_noKey";
+        if (string.Equals(channelStr,"[]"))
+        {
+            return map;
+        }
         //LogView.setViewText ("GameGlobal.cs,setChannelInfo(),channelStr=="+channelStr);
         JObject itemData = (JObject)JsonConvert.DeserializeObject(channelStr);
 
@@ -201,6 +205,7 @@ public class JsonHelper  {
 
         Dictionary<int, Dictionary<int, Vector3>> points = PointHelper.GetInstance().userdataformweb;
 
+        //匹配点
         string key = Tool.matchingpointskey;
         JObject groupjobject = new JObject();
         foreach (KeyValuePair<int, Dictionary<int, Vector3>> item in points)
@@ -535,7 +540,7 @@ public class DataItem
     public int case_id { get; set; }
     public string title { get; set; }
     public string injury_position { get; set; }
-    public bool potsition { get; set; }
+    public string position { get; set; }
     public string description { get; set; }
     public string note { get; set; }
     public string created_at { get; set; }

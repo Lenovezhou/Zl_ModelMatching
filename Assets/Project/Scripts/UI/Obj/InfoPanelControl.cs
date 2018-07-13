@@ -16,11 +16,11 @@ public class InfoPanelControl : MonoBehaviour {
     private void Init()
     {
         title = transform.Find("titleText").GetComponent<Text>();
-        position = transform.Find("positionText").GetComponent<Text>();
-        protector_shape = transform.Find("protector_shapeText").GetComponent<Text>();
-        injury_position = transform.Find("injury_positionText").GetComponent<Text>();
-        description = transform.Find("descriptionText").GetComponent<Text>();
-        note = transform.Find("noteText").GetComponent<Text>();
+        position = transform.Find("positionText/Text").GetComponent<Text>();
+        protector_shape = transform.Find("protector_shapeText/Text").GetComponent<Text>();
+        injury_position = transform.Find("injury_positionText/Text").GetComponent<Text>();
+        description = transform.Find("descriptionText/Text").GetComponent<Text>();
+        note = transform.Find("noteText/Text").GetComponent<Text>();
 
         RefreshInfo(PlayerDataCenter.Currentillnessdata);
     }

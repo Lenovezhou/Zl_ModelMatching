@@ -61,15 +61,12 @@ public class ModelTranslate : StateMachine {
         Vector3 localpos = Tool.ImprotUserPos;
         Vector3 localeuler = Vector3.zero;
         PlayerDataCenter.LoclaUserData lud = PlayerDataCenter.CurrentLocaluserdata;
-        if (lud.isfill)
-        {
             localpos.x = lud.usermodellocalposX;
             localpos.y = lud.usermodellocalposY;
             localpos.z = lud.usermodellocalposZ;
             localeuler.x = lud.usermodellocaleulerangleX;
             localeuler.y = lud.usermodellocaleulerangleY;
             localeuler.z = lud.usermodellocaleulerangleZ;
-        }
         PlayerDataCenter.UpdataUserData(PlayerDataCenter.LoclaUserData.DataKey.Postion, localpos);
         PlayerDataCenter.UpdataUserData(PlayerDataCenter.LoclaUserData.DataKey.Eulerangel, localeuler);
         transform.localPosition = localpos;

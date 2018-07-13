@@ -101,8 +101,8 @@ public class MyWebRequest : Singleton<MyWebRequest> {
 
         form.AddField("title", pd.title);
         form.AddField("injury_position", pd.injury_position.ToString());
-        int intposition = pd.position == PlayerDataCenter.IllNessData.Direction.Left ? 0 : 1;
-        form.AddField("position", intposition);
+        //int intposition = pd.position == PlayerDataCenter.IllNessData.Direction.Left ? 0 : 1;
+        form.AddField("position", pd.position.ToString().ToLower());
         form.AddField("description", pd.description.ToString());
         form.AddField("note", pd.note);
         form.AddField("protector_shape", pd.protector_shape.ToString());

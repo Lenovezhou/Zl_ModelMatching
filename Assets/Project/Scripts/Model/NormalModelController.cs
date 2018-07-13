@@ -50,17 +50,16 @@ public class NormalModelController : MonoBehaviour {
     /// </summary>
     public void RevertoLastSave()
     {
-        Vector3 localscaler = Vector3.one * 0.01f;
+        Vector3 localscaler = Vector3.one * Tool.NormalScaler;
         PlayerDataCenter.LoclaUserData lud = PlayerDataCenter.CurrentLocaluserdata;
-        if (lud.isfill)
-        {
+
             localscaler.x = lud.normalmodelscalerX;
             localscaler.y = lud.normalmodelscalerY;
             localscaler.z = lud.normalmodelscalerZ;
-        }
        
         
         transform.localScale = localscaler;
+        transform.localPosition = Tool.ImprotUserPos;
         selforiginsclaer = transform.localScale.x;
         PlayerDataCenter.UpdataUserData(PlayerDataCenter.LoclaUserData.DataKey.Scale, localscaler);
 

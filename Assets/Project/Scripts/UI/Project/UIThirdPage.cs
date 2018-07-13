@@ -48,15 +48,16 @@ public class UIThirdPage : TTUIPage
                  //当前stl模型在服务器的地址
                  PlayerDataCenter.stlInServerpath = JsonHelper.ParseJsonToNeed(str, Tool.datakey, Tool.stlInServerpath);
 
+                 //当前片体护具地址
+                 PlayerDataCenter.PieceProtectorURL = JsonHelper.ParseJsonToNeed(str, Tool.datakey, Tool.PieceProtectorURLkey);
+
+
                  string message = MSGCenter.FormatMessage(PlayerDataCenter.stlInServerpath, PlayerDataCenter.md5);
                  MSGCenter.Execute(Enums.ModelPath.ModelPath.ToString(), message);
 
-                 string PieceProtectorURL = JsonHelper.ParseJsonToNeed(str,Tool.datakey,Tool.PieceProtectorURLkey);
-
-                 PointHelper.GetInstance().DownloadSave(PieceProtectorURL);
 
                  //执行加载用户保存点并自动刷新第三页UI列表
-                 MSGCenter.Execute(Enums.MatchigPointGizmoControll.LoadUserData.ToString());
+                 //MSGCenter.Execute(Enums.MatchigPointGizmoControll.LoadUserData.ToString());
              }
              else
              {

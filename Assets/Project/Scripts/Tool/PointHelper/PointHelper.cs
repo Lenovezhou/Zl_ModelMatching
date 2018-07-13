@@ -118,7 +118,7 @@ public class PointHelper
                     if (suc)
                     {
                         //解析路径
-                        string downloadurlsjson = JsonHelper.ParseJsonToNeed(str, Tool.datakey, Tool.stlInServerpath);
+                        string downloadurlsjson = JsonHelper.ParseJsonToNeed(str, Tool.datakey, Tool.PieceProtectorURLkey);
                         DownloadSave(downloadurlsjson);
                         TTUIPage.ClosePage<UINotice>();
                     }
@@ -133,7 +133,7 @@ public class PointHelper
                     if (_suc)
                     {
                         //解析路径
-                        string downloadurlsjson = JsonHelper.ParseJsonToNeed(str, str, Tool.datakey, Tool.stlInServerpath);
+                        string downloadurlsjson = JsonHelper.ParseJsonToNeed(str, str, Tool.datakey, Tool.PieceProtectorURLkey);
                         DownloadSave(downloadurlsjson);
                         TTUIPage.ClosePage<UINotice>();
                     }
@@ -160,7 +160,7 @@ public class PointHelper
         string Protectiveclothingfilename = PlayerDataCenter.Currentillnessdata.ID + Tool.Protectiveclothingkey + ".stl";
         MyWebRequest.Instance.DownloadFileFromWed(bodyurl, Tool.SaveDownLoadFromWebPath, bodyurlsavefilename, (success, str) =>
         {
-            TTUIPage.ShowPage<UINotice>(Tool.DownloadDir + str);
+            TTUIPage.ShowPage<UINotice>(Tool.DownloadDir);
             if (success)
             {
                 TTUIPage.ClosePage<UINotice>();

@@ -226,8 +226,8 @@ public class CreateIllnessPopup : TTUIPage {
         currentilldata = da != null ? da : new PlayerDataCenter.IllNessData() {
             ID = -1,
             injury_position = "脚",
-            protector_shape = 0,
-            position = 0,
+            protector_shape =  PlayerDataCenter.IllNessData.ProtectorShape.Short,
+            position = PlayerDataCenter.IllNessData.Direction.RIGHT,
             title ="",
             description = "",
             note = ""

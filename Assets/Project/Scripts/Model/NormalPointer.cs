@@ -80,11 +80,9 @@ public class NormalPointer: MonoBehaviour
             owendpointerobj.GetComponent<MeshRenderer>().material.color = Color.yellow;
 
             owendpointerobj.transform.SetParent(parent.transform);
-            owendpointerobj.transform.localPosition = hitinfopoint;
+            //owendpointerobj.transform.localPosition = hitinfopoint;
 
             owendpointerobj.gameObject.SetActive(active);
-
-            CreateInstructionsGizmo(gameObject, owendpointerobj);
 
             owendpointerrender = owendpointerobj.GetComponent<MeshRenderer>();
             UserPointer userpointer = owendpointerobj.AddComponent<UserPointer>();
@@ -93,13 +91,14 @@ public class NormalPointer: MonoBehaviour
             Vector3 finalscaler = Vector3.one * s;
             userpointer.Init(origin_userimprotpointermaterial,highlight_userimprotpointermaterial, group, index, finalscaler, callback);
             owendchildpointer = userpointer;
+            owendchildpointer.TempChangePos(hitinfopoint);
             hasOwnedUserPointer = true;
         }
         else if (hasOwnedUserPointer)
         {
             owendchildpointer.TempChangePos(hitinfopoint);
-            CreateInstructionsGizmo(gameObject, owendpointerobj);
         }
+        CreateInstructionsGizmo(transform.position, owendpointerobj.transform.position);
     }
 
     /// <summary>
@@ -107,20 +106,19 @@ public class NormalPointer: MonoBehaviour
     /// </summary>
     /// <param name="self"></param>
     /// <param name="target"></param>
-    private void CreateInstructionsGizmo(GameObject self,GameObject target)
+    private void CreateInstructionsGizmo(Vector3 self,Vector3 target)
     {
         if (!InstructionsGizmo)
         {
             GameObject obj = Resources.Load(Tool.InstructionsGizmoLocalPath) as GameObject;
-            InstructionsGizmo = Instantiate(obj);
+            InstructionsGizmo = Instantiate(obj,Vector3.zero,Quaternion.identity);
         }
-        InstructionsGizmo.transform.SetParent(null);
         InstructionsGizmo.GetComponentInChildren<MeshRenderer>().material = materialmap[Enums.MatarialsUse.Indicator_Effect];
-        InstructionsGizmo.transform.position = self.transform.position;
-        InstructionsGizmo.transform.up = target.transform.position - self.transform.position;
-        Vector3 endscaler = new Vector3(InstructionsGizmo.transform.localScale.x, Vector3.Distance(self.transform.position, target.transform.position)/2, InstructionsGizmo.transform.localScale.z);
+        InstructionsGizmo.transform.position = self;
+
+        InstructionsGizmo.transform.up = (target - self).normalized;
+        Vector3 endscaler = new Vector3(InstructionsGizmo.transform.localScale.x, Vector3.Distance(self, target) / 2, InstructionsGizmo.transform.localScale.z);
         InstructionsGizmo.transform.localScale = endscaler;
-        InstructionsGizmo.transform.SetParent(transform);
     }
 
     bool Canspawn(Enums.PointMode pm) { return !hasOwnedUserPointer && this.pm == pm; }
@@ -180,7 +178,7 @@ public class NormalPointer: MonoBehaviour
         }
         else {
             owendchildpointer.ResetLastSavedPosition();
-            CreateInstructionsGizmo(gameObject, owendpointerobj);
+            CreateInstructionsGizmo(transform.position , owendpointerobj.transform.position);
         }
     }
 
@@ -245,4 +243,5 @@ public class NormalPointer: MonoBehaviour
         string message = MSGCenter.FormatMessage(group.ToString(), index.ToString(), transform.position.ToString());
         MSGCenter.Execute(type, message);
     }
+
 }

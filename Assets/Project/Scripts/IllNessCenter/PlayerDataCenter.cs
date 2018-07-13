@@ -8,7 +8,7 @@ public class PlayerDataCenter : MonoBehaviour {
     public class IllNessData
     {
         public enum InjuryPosition { Arm, Lowerleg, Shoulder, Ankle }
-        public enum Direction { Right, Left }
+        public enum Direction { RIGHT, LEFT }
         public enum ProtectorShape { Short,Long }
 
 
@@ -51,9 +51,9 @@ public class PlayerDataCenter : MonoBehaviour {
         public float usermodellocaleulerangleY;
         public float usermodellocaleulerangleZ;
 
-        public float normalmodelscalerX;
-        public float normalmodelscalerY;
-        public float normalmodelscalerZ;
+        public float normalmodelscalerX = Tool.NormalScaler;
+        public float normalmodelscalerY = Tool.NormalScaler;
+        public float normalmodelscalerZ = Tool.NormalScaler;
         //是否填充
         public bool isfill;
     }
@@ -75,14 +75,14 @@ public class PlayerDataCenter : MonoBehaviour {
             md5map.Add(Tool.InjuryPosition[2], new Dictionary<IllNessData.Direction, string>());
             md5map.Add(Tool.InjuryPosition[3], new Dictionary<IllNessData.Direction, string>());
 
-            md5map[Tool.InjuryPosition[0]].Add(IllNessData.Direction.Left, Tool.lefthand);
-            md5map[Tool.InjuryPosition[0]].Add(IllNessData.Direction.Right, Tool.righthand);
-            md5map[Tool.InjuryPosition[1]].Add(IllNessData.Direction.Left, Tool.leftshoulder);
-            md5map[Tool.InjuryPosition[1]].Add(IllNessData.Direction.Right, Tool.rightshoulder);
-            md5map[Tool.InjuryPosition[2]].Add(IllNessData.Direction.Left, Tool.rightfoot);
-            md5map[Tool.InjuryPosition[2]].Add(IllNessData.Direction.Right, Tool.rightfoot);
-            md5map[Tool.InjuryPosition[3]].Add(IllNessData.Direction.Left, Tool.leftknee);
-            md5map[Tool.InjuryPosition[3]].Add(IllNessData.Direction.Right, Tool.rightknee);
+            md5map[Tool.InjuryPosition[0]].Add(IllNessData.Direction.LEFT, Tool.lefthand);
+            md5map[Tool.InjuryPosition[0]].Add(IllNessData.Direction.RIGHT, Tool.righthand);
+            md5map[Tool.InjuryPosition[1]].Add(IllNessData.Direction.LEFT, Tool.leftshoulder);
+            md5map[Tool.InjuryPosition[1]].Add(IllNessData.Direction.RIGHT, Tool.rightshoulder);
+            md5map[Tool.InjuryPosition[2]].Add(IllNessData.Direction.LEFT, Tool.leftfoot);
+            md5map[Tool.InjuryPosition[2]].Add(IllNessData.Direction.RIGHT, Tool.rightfoot);
+            md5map[Tool.InjuryPosition[3]].Add(IllNessData.Direction.LEFT, Tool.leftknee);
+            md5map[Tool.InjuryPosition[3]].Add(IllNessData.Direction.RIGHT, Tool.rightknee);
         }
 
         return md5map[pos][dirction];
@@ -104,8 +104,11 @@ public class PlayerDataCenter : MonoBehaviour {
     static public string Decorativepattern = "1";
     //md5
     static public string md5;
-
+    //患者模型在服务器的地址
     static public string stlInServerpath;
+    //标准片体和护具在服务器的地址
+    static public string PieceProtectorURL;
+
 
     static public Action<IllNessData> OnIllNessDataChange;
 
@@ -197,7 +200,7 @@ public class PlayerDataCenter : MonoBehaviour {
                 ind.protector_shape = IllNessData.ProtectorShape.Long;
             }
 
-            ind.position = di.potsition ? IllNessData.Direction.Right : IllNessData.Direction.Left;
+            ind.position = (IllNessData.Direction)Enum.Parse(typeof(IllNessData.Direction), di.position.ToUpper());
 
             ind.injury_position = di.injury_position;
 
